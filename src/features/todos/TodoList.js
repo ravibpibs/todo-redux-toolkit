@@ -1,19 +1,55 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { deleteTodo } from './todoSlice'
 import { EditIcon, DeleteIcon } from '../../assets/icons'
+import { useEffect, useState } from 'react'
 // components
 import { Button } from "../../components"
+import { collection, deleteDoc, onSnapshot, query,doc, QuerySnapshot } from 'firebase/firestore'
+import { db } from '../../firebase'
+import {setTodo} from './todoSlice'
 
 const TodoList = () => {
+  // const [totodata, setTodoData] = useState([])
   const dispatch = useDispatch()
-  const todos = useSelector(store => store.todos)
-  // console.log(todos);
+  const todos = useSelector(store => store.todos.data)
+  console.log("todos",todos);
 
-  const handleDeleteTodo = (id) => {
-    dispatch(deleteTodo({ id }))
+  const handleDeleteTodo = async(id) => {
+    await deleteDoc(doc(db,'todos',id))
+    //dispatch(deleteTodo({ id }))
   }
 
+
+  // modifytodo from firebase
+
+  // const fetchDataFromFirestore = ()=>{
+  //   const q = query(collection(db, 'todos'))
+  //   const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+  //     let todosArr = []
+  //     QuerySnapshot.forEach((doc) => {
+  //       todosArr.push({ ...doc.data(), id: doc.id })
+  //     });
+
+  //     dispatch(setTodo(todosArr))
+  //     // setTodoData(todosArr)
+  //   })
+    
+  // }
+
+  useEffect(() => {
+    const q = query(collection(db, 'todos'))
+    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+      let todosArr = []
+      QuerySnapshot.forEach((doc) => {
+        todosArr.push({ ...doc.data(), id: doc.id })
+      });
+      dispatch(setTodo(todosArr))
+    })
+    return () => unsubscribe()
+  }, [])
+
+  
   const renderCard = () => todos.map(todo => (
     <div
       className="bg-gray-200 p-5 flex flex-col justify-between shadow-xl ring-1 ring-gray-900/5"
@@ -26,9 +62,9 @@ const TodoList = () => {
 
       <div className="flex gap-4 justify-end mt-1">
         <Link to={`edit-todo/${todo.id}`} className="flex">
-          <button  className="w-6 h-6">
+          <button className="w-6 h-6">
             <EditIcon />
-          </button>       
+          </button>
         </Link>
         <button
           className="w-6 h-6"
@@ -48,7 +84,7 @@ const TodoList = () => {
         <Link to='/add-todo'>
           <Button>Add Todo</Button>
         </Link>
-        
+
       </div>
       <div className="grid gap-5 md:grid-cols-2">
         {todos.length ? renderCard() : <p className="text-center col-span-2 text-gray-700 font-semibold">No Todos</p>}
