@@ -23,18 +23,19 @@ export const authSlice = createSlice({
     },
     setLogin: (state, action) => {
       console.log(action.payload)
-    //   localStorage.setItem('token', action.payload.accessToken)
-    //   localStorage.setItem('user', action.payload.user)
-    //   state.loading = false
-    //   state.auth = true
-    //   state.user = action.payload.user
-    //   state.accessToken = action.payload.accessToken
+      localStorage.setItem('token', action.payload.accessToken)
+      localStorage.setItem('user', JSON.stringify(action.payload))
+      //   state.loading = false
+      state.auth = true
+      state.user = action.payload
+      //   state.accessToken = action.payload.accessToken
     },
     setLogout: (state) => {
-    //   localStorage.removeItem('token')
-    //   state.loading = false
-    //   state.auth = false
-    //   state.user = null
+      localStorage.removeItem('user')
+      localStorage.removeItem('token')
+      //   state.loading = false
+      state.auth = false
+      state.user = null
     },
     setError: (state, action) => {
       state.error = action.payload
@@ -79,6 +80,25 @@ export const login =
         throw (e)
       }
     }
+
+export const verifySession =
+  () => async (dispatch) => {
+    try {
+      const token = localStorage.getItem('token')
+      let user = JSON.parse(localStorage.getItem('user'))
+      dispatch(setLoading(true))
+      if (token) {
+
+        dispatch(setLogin(user))
+      } else {
+        dispatch(setLogout())
+      }
+    } catch (err) {
+      console.log(err)
+      dispatch(setLogout())
+      dispatch(setLoading(false))
+    }
+  }
 
 
 // exporting the reducer here, as we need to add this to the store

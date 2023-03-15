@@ -67,10 +67,11 @@ const Register = () => {
                         className='flex-1'
                         required />
                 </div>
-                <p onClick={() => navigate("/login")} className='cursor-pointer text-center text-blue-400 hover:text-blue-600 pt-3'>If Registered Then Log In</p>
+              
                 <div className='mx-auto'>
                     <button className='bg-blue-400 p-2 text-center font-semibold rounded-md border shadow-md w-fit mt-2' type='submit'>Register</button>
                 </div>
+                <p onClick={() => navigate("/login")} className='cursor-pointer text-center text-blue-400 hover:text-blue-600 pt-3'>If Registered Then Log In</p>
 
             </form>
         </div>

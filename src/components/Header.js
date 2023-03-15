@@ -1,7 +1,27 @@
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import { BrandIcon } from '../assets/icons'
+import { useSelector, useDispatch } from 'react-redux'
+import { addDoc, collection, onSnapshot, query, QuerySnapshot } from 'firebase/firestore'
+import { db } from '../firebase'
+import { getAuth, signInWithEmailAndPassword, AuthErrorCodes, signOut } from "firebase/auth";
+import { setLogout } from '../features/todos/authSlice'
 
 const Header = () => {
+ 
+  const logInData = useSelector(store => store.auth.user)
+  const auth = getAuth()
+  const dispatch = useDispatch()
+
+  const logOut = () => {
+    signOut(auth).then(() => {
+      dispatch(setLogout())
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+
+ 
 
   return (
     <header>
@@ -13,11 +33,16 @@ const Header = () => {
             </div>
             <span className='self-center text-md xxs:text-lg font-semibold whitespace-nowrap dark:text-white'>Todo App</span>
           </Link>
-          <a href="https://github.com/ravibpibs" target="_blank" rel="noreferrer" className="flex items-center">
+          <div className='flex space-x-2 items-center'>
+            <p className='text-white'>{logInData && logInData.email}</p>
+            {!!logInData && <button onClick={logOut} className='bg-blue-400 p-2 text-base font-semibold rounded-md'>Log Out</button>}
+
+          </div>
+          {/* <a href="https://github.com/ravibpibs" target="_blank" rel="noreferrer" className="flex items-center">
             <button className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 font-medium rounded-md text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 focus:outline-none dark:focus:ring-indigo-800">
               Github Repo
             </button>
-          </a>
+          </a> */}
         </div>
       </div>
     </header>
