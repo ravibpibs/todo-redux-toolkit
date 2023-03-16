@@ -8,6 +8,7 @@ import { addTodo } from "./todoSlice"
 import { Button, TextField, FormContainer } from "../../components"
 import { addDoc, collection, onSnapshot, query, QuerySnapshot } from 'firebase/firestore'
 import { db } from '../../firebase'
+import { notifier } from './notificationSlice'
 
 
 const AddTodo = () => {
@@ -32,24 +33,31 @@ const AddTodo = () => {
 
   const handleAddTodo = async () => {
     if (values.title == '') {
-      alert("Please Add Title")
+      notifier.error("Please Add Title")
       return
     }
     if (values.details == '') {
-      alert("Please Add Details")
+      notifier.error("Please Add Details")
       return
     }
-    await addDoc(collection(db, 'todos'), {
-      title: values.title,
-      details: values.details
-    })
-    
+    try {
+      await addDoc(collection(db, 'todos'), {
+        title: values.title,
+        details: values.details
+      })
+      notifier.success("Added Sucessfully")
+      navigate('/')
+    } catch (e) {
+      notifier.error(e.message)
+    }
+
+
     // dispatch(addTodo({
     //   id: nanoid(8),
     //   title: values.title,
     //   details: values.details
     // }))
-    navigate('/')
+
   }
 
   return (
@@ -58,13 +66,13 @@ const AddTodo = () => {
         label="Todo"
         value={values.title}
         onChange={(e) => setValues({ ...values, title: e.target.value })}
-        inputProps={{ type: 'text', placeholder: 'Todo Item Title' }}
+        inputProps={{ type: 'text', placeholder: 'Todo Item Title',maxlength:"30" }}
       />
       <TextField
         label="Details"
         value={values.details}
         onChange={(e) => setValues({ ...values, details: e.target.value })}
-        inputProps={{ type: 'text', placeholder: 'Todo item details...' }}
+        inputProps={{ type: 'text', placeholder: 'Todo item details...',maxlength:"100" }}
       />
       <Button onClick={handleAddTodo}>Create</Button>
     </FormContainer>

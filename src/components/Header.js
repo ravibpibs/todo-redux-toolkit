@@ -6,6 +6,7 @@ import { addDoc, collection, onSnapshot, query, QuerySnapshot } from 'firebase/f
 import { db } from '../firebase'
 import { getAuth, signInWithEmailAndPassword, AuthErrorCodes, signOut } from "firebase/auth";
 import { setLogout } from '../features/todos/authSlice'
+import { notifier } from '../features/todos/notificationSlice'
 
 const Header = () => {
  
@@ -16,8 +17,10 @@ const Header = () => {
   const logOut = () => {
     signOut(auth).then(() => {
       dispatch(setLogout())
+      notifier.info("Logged Out Successfully")
     }).catch((error) => {
       console.log(error)
+      notifier.error(error.message)
     });
   }
 
@@ -31,11 +34,11 @@ const Header = () => {
             <div className="w-6 h-6 sm:h-9 flex items-center">
               <BrandIcon color="white" />
             </div>
-            <span className='self-center text-md xxs:text-lg font-semibold whitespace-nowrap dark:text-white'>Todo App</span>
+            <span className='self-center text-md xxs:text-lg font-semibold whitespace-nowrap dark:text-white text-white'>Todo App</span>
           </Link>
           <div className='flex space-x-2 items-center'>
             <p className='text-white'>{logInData && logInData.email}</p>
-            {!!logInData && <button onClick={logOut} className='bg-blue-400 p-2 text-base font-semibold rounded-md'>Log Out</button>}
+            {!!logInData && <button onClick={logOut} className='bg-blue-600 p-2 text-base font-semibold rounded-md text-white'>Log Out</button>}
 
           </div>
           {/* <a href="https://github.com/ravibpibs" target="_blank" rel="noreferrer" className="flex items-center">
