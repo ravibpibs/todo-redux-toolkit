@@ -39,7 +39,7 @@ const TodoList = () => {
     })
     setLoading(false)
     return () => unsubscribe()
-  }, [])
+  }, [dispatch])
 
 
   const renderCard = () => todos.map(todo => (
