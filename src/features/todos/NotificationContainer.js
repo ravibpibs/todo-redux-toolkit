@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useCallback, useState } from 'react'
+import { Fragment, useCallback} from 'react'
 import { Transition } from '@headlessui/react'
 import {
   CheckCircleIcon,
@@ -8,7 +8,7 @@ import {
   XCircleIcon,
 } from '@heroicons/react/outline'
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector} from 'react-redux'
 import { notifier } from '../todos/notificationSlice'
 
 export default function NotificationContainer() {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection, onSnapshot, query, QuerySnapshot } from 'firebase/firestore'
+import { addDoc, collection } from 'firebase/firestore'
 import { db } from '../firebase'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { notifier } from '../features/todos/notificationSlice';
@@ -43,7 +43,7 @@ const Register = () => {
                 <div className='flex items-center space-x-3 mt-6'>
                     <label className='w-2/5 md:w-1/3 font-semibold'>Name :</label>
                     <div className='flex items-center border rounded-md p-3 w-full'>
-                        <img src="/images/profilepic.png" className='w-5 h-5 object-contain' />
+                        <img src="/images/profilepic.png" className='w-5 h-5 object-contain' alt='name' />
                         <input type="text"
                             value={values.name}
                             placeholder="Enter Name"
@@ -55,7 +55,7 @@ const Register = () => {
                 <div className='flex items-center space-x-3'>
                     <label className='w-2/5 md:w-1/3 font-semibold'>Email :</label>
                     <div className='flex items-center border rounded-md p-3 w-full'>
-                        <img src="/images/person.png" />
+                        <img src="/images/person.png" alt='email' />
                         <input
                             type="email"
                             value={values.email}
@@ -68,7 +68,7 @@ const Register = () => {
                 <div className='flex items-center space-x-3 mt-6'>
                     <label className='w-2/5 md:w-1/3 font-semibold'>Password :</label>
                     <div className='flex items-center border rounded-md p-3 w-full'>
-                        <img src="/images/lock.png" />
+                        <img src="/images/lock.png" alt='password' />
                         <input
                             type="password"
                             value={values.password}

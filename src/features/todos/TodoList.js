@@ -1,11 +1,10 @@
 import { useSelector, useDispatch, } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { deleteTodo } from './todoSlice'
 import { EditIcon } from '../../assets/icons'
 import { useEffect, useState } from 'react'
 // components
 import { Button } from "../../components"
-import { collection, deleteDoc, onSnapshot, query, doc, QuerySnapshot } from 'firebase/firestore'
+import { collection, deleteDoc, onSnapshot, query, doc } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { setTodo } from './todoSlice'
 import { notifier } from './notificationSlice'
@@ -25,25 +24,9 @@ const TodoList = () => {
   const handleDeleteTodo = async (id,title) => {
     await deleteDoc(doc(db, 'todos', id))
     notifier.info(`${title} Deleted`)
-    //dispatch(deleteTodo({ id }))
   }
 
 
-  // modifytodo from firebase
-
-  // const fetchDataFromFirestore = ()=>{
-  //   const q = query(collection(db, 'todos'))
-  //   const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-  //     let todosArr = []
-  //     QuerySnapshot.forEach((doc) => {
-  //       todosArr.push({ ...doc.data(), id: doc.id })
-  //     });
-
-  //     dispatch(setTodo(todosArr))
-  //     // setTodoData(todosArr)
-  //   })
-
-  // }
 
   useEffect(() => {
     const q = query(collection(db, 'todos'))

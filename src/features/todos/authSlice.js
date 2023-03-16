@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 // declaring the types for our state
 
@@ -44,42 +44,6 @@ export const authSlice = createSlice({
 })
 // Here we are just exporting the actions from this slice, so that we can call them anywhere in our app.
 export const { setLoading, setLogin, setLogout, setError } = authSlice.actions
-
-//API Calls
-export const login =
-  (values) =>
-    async () => {
-      try {
-        // const res = await fetch(`/public.txt`)
-        // const publicKey = await res.text()
-        // const encryptedData = crypto.publicEncrypt(
-        //   { key: publicKey },
-        //   Buffer.from(values.password)
-        // )
-        // const password = encryptedData.toString('base64')
-        // const response = await axios.post(
-        //   `${process.env.API_URL}/eon_members/login`,
-        //   {
-        //     email: values.email.toLowerCase(),
-        //     password: password,
-        //     franchiseeType: "SMART_ATTENDANT"
-        //   }
-        // )
-        // const data = response.data.response.data
-        // if (data.token) {
-        //   dispatch(
-        //     setLogin({
-        //       accessToken: data.token,
-        //       user: data.user,
-        //     })
-        //   )
-        // }
-      } catch (e) {
-        // console.error(e)
-        // dispatch(setError(e.response?.data.error[0].msg))
-        throw (e)
-      }
-    }
 
 export const verifySession =
   () => async (dispatch) => {

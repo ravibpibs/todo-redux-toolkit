@@ -8,16 +8,12 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     setTodo: (state, action) => {
-      console.log("action",action);
       state.data = action.payload
     },
     addTodo: (state, action) => {
-      // Shows the action type and payload
-      console.log(action);
       state.data.push(action.payload)
     },
     editTodo: (state, action) => {
-      // grab the id, title & details from the action payload 
       const { id, title, details } = action.payload
       const existingTodo = state.data.find(todo => todo.id === id)
       if(existingTodo) {

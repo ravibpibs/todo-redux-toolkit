@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import { Routes, Route } from 'react-router-dom'
 // features
 import { TodoList, AddTodo, EditTodo } from './features/todos'
@@ -19,17 +19,9 @@ function App() {
   useEffect(() => {
     console.log('VERIFY')
     dispatch(verifySession())
-  }, [])
+  }, [dispatch])
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token")
-  //   if (!token) {
-  //     router.push('/auth/login')
-  //   }
-  //   if (!!token && router.pathname.includes("/auth/login")) {
-  //     router.push('/')
-  //   }
-  // }, [authState])
+  
 
 
   return (

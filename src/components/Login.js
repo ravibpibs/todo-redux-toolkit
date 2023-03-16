@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection, onSnapshot, query, QuerySnapshot } from 'firebase/firestore'
-import { db } from '../firebase'
-import { getAuth, signInWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
 import { setLogin } from '../features/todos/authSlice'
 import { useDispatch } from "react-redux"
 import { notifier } from '../features/todos/notificationSlice'
@@ -13,7 +11,7 @@ const Login = () => {
         email: '',
         password: ''
     })
-    const [error, setError] = useState(null);
+
 
     const navigate = useNavigate();
     const dispatch = useDispatch()
@@ -33,15 +31,7 @@ const Login = () => {
             .catch((err) => {
                 console.log("errrrrr",err.message)
                 notifier.error(err.message)
-                // if (
-                //     err.code === AuthErrorCodes.INVALID_PASSWORD ||
-                //     err.code === AuthErrorCodes.USER_DELETED
-                // ) {
-                //     setError("The email address or password is incorrect");
-                // } else {
-                //     console.log(err.code);
-                //     alert(err.code);
-                // }
+               
             });
     }
     return (
@@ -51,7 +41,7 @@ const Login = () => {
                 <div className='flex items-center space-x-3 mt-6'>
                     <label className='w-2/5 md:w-1/3 font-semibold'>Email :</label>
                     <div className='flex items-center border rounded-md p-3 w-full'>
-                        <img src="/images/person.png" />
+                        <img src="/images/person.png" alt='person' />
                         <input
                             type="email"
                             value={values.email}
@@ -64,7 +54,7 @@ const Login = () => {
                 <div className='flex items-center space-x-3'>
                     <label className='w-2/5 md:w-1/3 font-semibold'>Password :</label>
                     <div className='flex items-center border rounded-md p-3 w-full'>
-                        <img src="/images/lock.png" />
+                        <img src="/images/lock.png" alt='password' />
                         <input
                             type="password"
                             value={values.password}

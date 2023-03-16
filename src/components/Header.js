@@ -1,10 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
 import { BrandIcon } from '../assets/icons'
 import { useSelector, useDispatch } from 'react-redux'
-import { addDoc, collection, onSnapshot, query, QuerySnapshot } from 'firebase/firestore'
-import { db } from '../firebase'
-import { getAuth, signInWithEmailAndPassword, AuthErrorCodes, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { setLogout } from '../features/todos/authSlice'
 import { notifier } from '../features/todos/notificationSlice'
 
