@@ -64,9 +64,9 @@ const TodoList = () => {
       className="bg-white p-5 flex flex-col justify-between shadow-xl ring-1 ring-gray-900/5 border rounded-md"
       key={todo.id}
     >
-      <div className='w-48'>
+      <div className='w-72'>
         <h3 className="font-bold text-lg text-gray-700">{todo.title}</h3>
-        <span className="font-normal text-gray-600 break-words flex-wrap">{todo.details}</span>
+        <span className="font-normal text-gray-600  break-words flex-wrap">{todo.details}</span>
       </div>
 
       <div className="flex gap-4 justify-end mt-1">
