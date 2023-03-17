@@ -3,9 +3,9 @@ import Header from "./Header"
 
 const Layout = () => {
   return (
-    <div className="w-screen h-screen bg-slate-100">
+    <div className="w-screen h-full min-h-screen bg-slate-200">
       <Header />
-      <main className="container mx-auto px-3 md:px-5 max-w-5xl pt-10 md:pt-12 ">
+      <main className="container mx-auto px-3 md:px-5 max-w-5xl pt-5 md:pt-7 pb-5">
         <Outlet />
       </main>
     </div>

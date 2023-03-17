@@ -90,7 +90,7 @@ const EditTodo = () => {
         />
       </div>
       <FormErrorMessage touched={formik.touched.details} error={formik.errors.details} />
-      <button className='bg-blue-600 text-white p-2 text-center font-semibold rounded-md border shadow-md w-fit px-4 hover:bg-blue-700 flex justify-center mx-auto' type="submit">Create</button>
+      <button className='bg-blue-600 text-white p-2 text-center font-semibold rounded-md border shadow-md w-fit px-4 hover:bg-blue-700 flex justify-center mx-auto' type="submit">Update</button>
 
     </form>
   )
