@@ -86,7 +86,7 @@ const TodoList = () => {
   return (
     <>
       <div className="flex flex-wrap flex-col xxs:flex-row justify-between text-center items-center mx-auto max-w-screen-xl mb-4">
-        <h1 className='font-bold text-2xl text-gray-700 '>TodoList</h1>
+        <h1 className='font-bold text-2xl text-gray-700 '>Todo List</h1>
         <Link to='/add-todo'>
           <Button>Add Todo</Button>
         </Link>
