@@ -13,15 +13,16 @@ import {
 } from '@heroicons/react/outline'
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
+import moment from 'moment/moment'
 
 const TodoList = () => {
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
   const todos = useSelector(store => store.todos.data)
+  const logInData = useSelector(store => store.auth.user)
 
 
-
-  const handleDeleteTodo = async (id,title) => {
+  const handleDeleteTodo = async (id, title) => {
     await deleteDoc(doc(db, 'todos', id))
     notifier.info(`${title} Deleted`)
   }
@@ -44,31 +45,34 @@ const TodoList = () => {
 
   const renderCard = () => todos.map(todo => (
     <div
-      className="bg-white p-5 flex flex-col justify-between shadow-xl ring-1 ring-gray-900/5 border rounded-md"
+      className="bg-white p-5 flex flex-col justify-between shadow-xl ring-1 ring-gray-900/5 border rounded-md relative"
       key={todo.id}
     >
-      <div className='w-72'>
+      <span className='absolute top-1 left-2 text-xs font-semibold italic text-slate-900'>{`Created by ${todo.name}`}</span>
+      <span className='absolute top-1 right-2 text-xs font-semibold italic text-slate-900'>{moment(todo.date).format('MMMM Do YYYY, h:mm:ss a')}</span>
+      <div className='w-72 mt-1'>
         <h3 className="font-bold text-lg text-gray-700">{todo.title}</h3>
         <span className="font-normal text-gray-600  break-words flex-wrap">{todo.details}</span>
       </div>
-
-      <div className="flex gap-4 justify-end mt-1">
-        <Link to={`edit-todo/${todo.id}`} className="flex">
-          <Tooltip overlay="Update" placement="bottom">
-            <button className="w-6 h-6 hover:-rotate-12">
-              <EditIcon />
+      {(logInData.uid === todo.userId || logInData.uid === "bIL8WuOHB6dpw7Lk0oozwnZAzNg1") &&
+        <div className="flex gap-4 justify-end mt-1">
+          <Link to={`edit-todo/${todo.id}`} className="flex">
+            <Tooltip overlay="Update" placement="bottom">
+              <button className="w-6 h-6 hover:-rotate-12">
+                <EditIcon />
+              </button>
+            </Tooltip>
+          </Link>
+          <Tooltip overlay="Delete" placement="bottom">
+            <button
+              className="w-6 h-6 hover:scale-110"
+              onClick={() => handleDeleteTodo(todo.id, todo.title)}
+            >
+              <TrashIcon className='text-red-500' />
             </button>
           </Tooltip>
-        </Link>
-        <Tooltip overlay="Delete" placement="bottom">
-          <button
-            className="w-6 h-6 hover:scale-110"
-            onClick={() => handleDeleteTodo(todo.id,todo.title)}
-          >
-            <TrashIcon className='text-red-500' />
-          </button>
-        </Tooltip>
-      </div>
+        </div>
+      }
 
     </div>
   ))
