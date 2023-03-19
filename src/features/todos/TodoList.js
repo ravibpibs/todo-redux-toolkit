@@ -14,13 +14,13 @@ import {
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 import moment from 'moment/moment'
+import FadeLoader from "react-spinners/FadeLoader";
 
 const TodoList = () => {
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
   const todos = useSelector(store => store.todos.data)
   const logInData = useSelector(store => store.auth.user)
-
 
   const handleDeleteTodo = async (id, title) => {
     await deleteDoc(doc(db, 'todos', id))
@@ -37,8 +37,8 @@ const TodoList = () => {
         todosArr.push({ ...doc.data(), id: doc.id })
       });
       dispatch(setTodo(todosArr))
+      setLoading(false)
     })
-    setLoading(false)
     return () => unsubscribe()
   }, [dispatch])
 
@@ -78,15 +78,15 @@ const TodoList = () => {
   ))
 
   if (loading) {
-    return <div className='grid place-items-center h-full text-2xl font-bold'>
-      Loading............
+    return <div className='grid place-items-center h-full mt-20 text-2xl font-bold'>
+      <FadeLoader color="#0000FF" />
     </div>
   }
 
   return (
     <>
       <div className="flex flex-wrap flex-col xxs:flex-row justify-between text-center items-center mx-auto max-w-screen-xl mb-4">
-        <h1 className='font-bold text-2xl text-gray-700 '>Todo List</h1>
+        <h1 className='font-bold text-2xl text-gray-700 '>Team Todo List</h1>
         <Link to='/add-todo'>
           <Button>Add Todo</Button>
         </Link>

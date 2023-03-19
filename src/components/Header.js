@@ -38,7 +38,7 @@ const Header = () => {
             <div className="w-6 h-6 sm:h-9 flex items-center">
               <BrandIcon color="white" />
             </div>
-            <span className='self-center text-md xxs:text-lg font-semibold whitespace-nowrap dark:text-white text-white'>Todo App</span>
+            <span className='self-center text-md xxs:text-lg font-semibold whitespace-nowrap dark:text-white text-white'>Team Todo App</span>
           </Link>
           <div className='flex space-x-2 items-center'>
             <p className='text-white font-semibold'>{logInData && logInData?.displayName}</p>
@@ -67,7 +67,7 @@ const Header = () => {
           </Transition.Child>
 
           <div className="fixed inset-0 z-10 overflow-y-auto">
-            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
